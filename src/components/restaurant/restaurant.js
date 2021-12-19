@@ -5,9 +5,11 @@ import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
 import Tabs from '../tabs';
+import {connect} from "react-redux";
+import {getRestaurantReviewsSelector } from "../../redux/selectors";
 
-const Restaurant = ({ restaurant }) => {
-  const { id, name, menu, reviews } = restaurant;
+const Restaurant = ({restaurant, reviews}) => {
+  const { id, name, menu } = restaurant;
 
   const [activeTab, setActiveTab] = useState('menu');
 
@@ -46,4 +48,8 @@ Restaurant.propTypes = {
   }).isRequired,
 };
 
-export default Restaurant;
+const mapStateToProps = (state, props) => ({
+  reviews: getRestaurantReviewsSelector(state, props)
+});
+
+export default connect(mapStateToProps)(Restaurant);
