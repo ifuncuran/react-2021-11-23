@@ -6,6 +6,8 @@ import Button from '../../button';
 
 import styles from './review-form.module.css';
 
+import {addComment} from '../../../redux/actions';
+
 const INITIAL_VALUES = { name: '', text: '', rating: 3 };
 
 const ReviewForm = ({ onSubmit }) => {
@@ -51,6 +53,8 @@ const ReviewForm = ({ onSubmit }) => {
   );
 };
 
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
-}))(ReviewForm);
+const mapDispatchToProps = (dispatch, props) => ({
+  onSubmit: (value) => dispatch(addComment({ ...value, restaurantId: props.restaurantId }))
+});
+
+export default connect(null, mapDispatchToProps)(ReviewForm);
